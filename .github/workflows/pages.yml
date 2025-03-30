@@ -1,11 +1,8 @@
-.github/workflows/pages.yml
 name: Pages
-
 on:
   push:
     branches:
       - main # default branch
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,12 +12,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
           submodules: recursive
-      - name: Use Node.js 22.14.0
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
           # Ref: https://github.com/actions/setup-node#supported-version-syntax
-          node-version: "22.14.0"
+          node-version: "22"
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
@@ -48,4 +45,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3  # 这里假设使用 v3 版本，具体根据实际情况调整

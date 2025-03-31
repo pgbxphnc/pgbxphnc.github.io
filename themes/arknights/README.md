@@ -7,22 +7,33 @@
 
 ## 预览
 
+这里记录了所有本主题使用者<!-- 曾经使用 -->的友链：
+
 - ### **Dr.Yue_plus: <http://arknights.theme.hexo.yue.zone/>**
 - ### **Dr.ToUNVRSe <https://tounvrse.github.io/>**
 - **Dr.Ye: <https://laurenfrost.github.io/>**
-- **Dr.LingYun: <https://dr-lingyun.gitee.io/>**
-- **Dr.XIMU：<http://b.ligzs.cn/>**
 - **Dr.tyqtyq <https://tyq0712.github.io/>**
-- **Dr.TTsdzb <https://ark.ttsdzb.monster/>**
 - **Dr.Angine <https://angine.tech/>**
 - **Dr.sjfhsjfh <https://sjfh.top/>**
 - **Dr.Voilone <https://note.voiblog.top/>**
-- **Zhongye1 <https://zhongye1.github.io/>**
 - **Dr.yuanli-LFSW<https://blog.yuanli-lfsw.com/>**
-- **Dr.Rimrose: <https://blog.rimrose.site>**
 - **Dr.Laplacian: <https://rhinelab.kr>**
+- **Dr.Chen: <https://light-of-hers.github.io>**
+- **Dr.Linyee <https://linyee.world/>**
+- **Dr.Flacier <https://fldicoahkiin.github.io>**
+- **Dr.LZW <https://lzwnb.github.io/blog/>** 
+- **Dr.GrandpaFox <https://grandpafox.online/>** 
+- **Dr.未雨屏 <https://weiyuping.top/>**
+- **飞龙project <https://schale.top/>**
+- **tomorinao-www <https://ghpage.wwnao.xyz>**
 
-如果使用了这个主题，欢迎在这儿贴预览链接~
+<!-- - **Dr.LingYun: <https://dr-lingyun.gitee.io/>** -->
+<!-- - **Dr.XIMU：<http://www.ligzs.com/>** -->
+<!-- - **Dr.TTsdzb <https://ark.ttsdzb.monster/>** -->
+<!-- - **Dr.Zhongye1 <https://zhongye1.github.io/>** -->
+<!-- - **Dr.Rimrose: <https://blog.rimrose.site>** -->
+
+如果使用了这个主题，欢迎发起 [Pull Requests](https://github.com/Yue-plus/hexo-theme-arknights/compare) 在这儿贴友链~
 
 ![主题预览图片](./demo.jpg)
 
@@ -42,7 +53,7 @@
 hexo init Hexo
 cd Hexo
 cnpm install
-git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights
+git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights --depth=1
 ```
 
 ### 安装依赖
@@ -144,6 +155,8 @@ valine:
   app_id: # APP ID
   app_key: # APP KEY
   server_url: # APP DOMAIN（LeanCloud 国际版）
+  avatar: 'retro' # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+  avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/' # 自定义 avatar cdn
 ```
 
 开启邮件提醒：[zhaojun1998 / Valine-Admin](https://github.com/zhaojun1998/Valine-Admin)
@@ -383,8 +396,15 @@ busuanzi:
 
 ## 文档加密
 
-经过修改的 [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) 插件已适配并集成在本主题中（目前仅支持 default 与 up 主题）。
+经过修改的 [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) 插件已适配并集成在本主题中（目前仅支持 `default` 与 `up` 主题）。
 
+> 如果之前安装了，请删除 Hexo 目录下 `package.json` 中的 `hexo-blog-encrypt` 依赖，并且执行以下命令
+> 
+> ```shell
+> pnpm i
+> hexo clean
+> ```
+> 
 > 详细配置参考 [hexo-blog-encrypt/ReadMe.zh.md](https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md)
 
 在 `Hexo/_config.yml` 文件中添加以下内容：
@@ -397,6 +417,7 @@ encrypt: # hexo-blog-encrypt
   tags:
   - {name: tagName, password: 密码A}
   - {name: tagName, password: 密码B}
+  theme: default # default / up
   wrong_pass_message: 与 Rhodes Island™ 效验口令失败，请重试。
   wrong_hash_message: 与 Rhodes Island™ 效验口令失败，当前使用临时权限查看。
 ```
@@ -431,7 +452,16 @@ search:
 除了 [Hexo 支持的 Front-matter](https://hexo.io/zh-cn/docs/front-matter) 还支持：
 
 ```yaml
-# 文章页右上角发布/更新日期
+# 文章发布/更新日期
+post-time: true/false
+
+# 文章阅读时间/词数统计
+post-count: true/false
+
+# 文章不蒜子统计
+busuanzi: true/false
+
+# 开启/关闭以上全部
 post-info: true/false
 
 # 侧边栏的目录
@@ -440,6 +470,45 @@ post-index: true/false
 # 打赏框
 reward: true/false
 ```
+
+## 额外标签
+
+### admonition
+
+```text
+{% note/warning/success/failure/detail [title] [open/fold] [color] %}
+content
+{% end[note/warning/success/failure/detail] %}
+```
+
+添加提示、警告、错误等块式内容，其中 `note/warning/success/failure` 有图标，`detail` 无图标。
+
+### hide
+
+```
+{% hide content %}
+```
+
+隐藏内容，content 支持 markdown 渲染、可以有空格，无须使用引号。
+
+### link card/linkc
+
+```
+{% linkcard %}
+Title1:
+    avatar: https://someLink/someAvatar.png
+    src: https://someLink/
+    img: https://somelink/somePicture.png
+    descr: someDescr
+    style:
+    	color: someColor
+Title2:
+    avatar: https://someLink/someName.png
+    src: https://someLink/
+{% endlinkcard %}
+```
+
+可生成一组友链，标题（title）、与链接（src）为必选项。样式（style）遵循 CSS 格式。
 
 ## 引入自定义 CSS/JS 文件
 
@@ -528,9 +597,11 @@ TypeScript 需要手动编译，请全局安装 `typescript` 后在 `arknights\s
 
 - 给颗小星星吧 `(/▽＼)`
   > - √ `ヾ(✿ﾟ▽ﾟ)ノ` 100star 做个新主题哦~
-  > - 新主题开发中 [Yue-plus/vuepress-theme-rhinelab](https://github.com/Yue-plus/vuepress-theme-rhinelab)
+  > - 新主题开发中：
+  >   + [Yue-plus/astro-arknights](https://github.com/Yue-plus/astro-arknights)
+  >   + [Yue-plus/vuepress-theme-rhinelab](https://github.com/Yue-plus/vuepress-theme-rhinelab)
 - 开发者的B服ID：`24444750`
-- 加入 QQ 群：618221514
+- 加入 QQ 群：[618221514](https://qm.qq.com/q/QJ7NPWiWyK)
   > 群内开发为主，吹水晒卡，分享线索7也都欢迎哦~ `d=====(￣▽￣*)b`
 - 打赏、赞助:
   ![收款二维码](./support.jpg)

@@ -7,22 +7,33 @@
 
 ## デモページ　　
 
+ここには、すべての本テーマの使用者<!-- かつて使用したことがある人 -->の相互リンクが記録されています。
+
 - ### **Dr.Yue_plus: <http://arknights.theme.hexo.yue.zone/>**
 - ### **Dr.ToUNVRSe <https://tounvrse.github.io/>**
 - **Dr.Ye: <https://laurenfrost.github.io/>**
-- **Dr.LingYun: <https://dr-lingyun.gitee.io/>**
-- **Dr.XIMU：<http://b.ligzs.cn/>**
 - **Dr.tyqtyq <https://tyq0712.github.io/>**
-- **Dr.TTsdzb <https://ark.ttsdzb.monster/>**
 - **Dr.Angine <https://angine.tech/>**
 - **Dr.sjfhsjfh <https://sjfh.top/>**
 - **Dr.Voilone <https://note.voiblog.top/>**
-- **Zhongye1 <https://zhongye1.github.io/>**
 - **Dr.yuanli-LFSW<https://blog.yuanli-lfsw.com/>**
-- **Dr.Rimrose: <https://blog.rimrose.site>**
 - **Dr.Laplacian: <https://rhinelab.kr>**
+- **Dr.Chen: <https://light-of-hers.github.io>**
+- **Dr.Linyee <https://linyee.world/>**
+- **Dr.Flacier <https://fldicoahkiin.github.io>**
+- **Dr.LZW <https://lzwnb.github.io/blog/>** 
+- **Dr.GrandpaFox <https://grandpafox.online/>** 
+- **Dr.未雨屏 <https://weiyuping.top/>**
+- **飞龙project <https://schale.top/>**
+- **tomorinao-www <https://ghpage.wwnao.xyz>**
 
-このテーマを使ったあなたのブログリンク、ここに付けたいなら大歓迎~　　
+<!-- - **Dr.LingYun: <https://dr-lingyun.gitee.io/>** -->
+<!-- - **Dr.XIMU：<http://www.ligzs.com/>** -->
+<!-- - **Dr.TTsdzb <https://ark.ttsdzb.monster/>** -->
+<!-- - **Dr.Zhongye1 <https://zhongye1.github.io/>** -->
+<!-- - **Dr.Rimrose: <https://blog.rimrose.site>** -->
+　
+このテーマを使用した場合、[Pull Requests](https://github.com/Yue-plus/hexo-theme-arknights/compare) を発起してここに相互リンクを貼ることを大歓迎します。
 
 ![テーマのデモページ](./demo.jpg)
 
@@ -42,7 +53,7 @@
 hexo init Hexo
 cd Hexo
 npm install
-git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights
+git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights --depth=1
 ```
 
 ### 依存関係をインストールする
@@ -143,7 +154,9 @@ valine:
   enable: false
   app_id: # APP ID
   app_key: # APP KEY
-  server_url: # APP DOMAIN（LeanCloud 国际版）
+  server_url: # APP DOMAIN（LeanCloud 国際版）
+  avatar: 'retro' # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+  avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/' # カスタム avatar CDN
 ```
 
 メール通知を有効にする：[zhaojun1998 / Valine-Admin](https://github.com/zhaojun1998/Valine-Admin)
@@ -383,8 +396,15 @@ busuanzi:
 
 ### ドキュメント暗号化
 
-修正された [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) プラグインはこのトピックに適合して統合されています（現在は default と up トピックのみがサポートされています）。
+修正された [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) プラグインはこのトピックに適合して統合されています（現在は `default` と `up` トピックのみがサポートされています）。
 
+> もしこの前にインストールした場合は、Hexo ディレクトリの `package.json` から `hexo-blog-encrypt` 依存を削除し、次のコマンドを実行してください
+> 
+> ```shell
+> npm i
+> hexo clean
+> ```
+> 
 > 詳細構成リファレンス [hexo-blog-encrypt/ReadMe.zh.md](https://github.com/D0n9X1n/hexo-blog-encrypt/)
 
 `Hexo/_config.yml` ファイルに次の内容を追加します。
@@ -431,7 +451,16 @@ search:
 [Hexo サポートの Front-matter](https://hexo.io/ja/docs/front-matter.html) もサポート：
 
 ```yaml
-# 記事ページ右上のパブリッシュ/更新日
+# 投稿/更新日
+post-time: true/false
+
+# 記事の読み込み時間/語数の統計
+post-count: true/false
+
+# 記事の読み取り回数
+busuanzi: true/false
+
+# 以上すべてオン/オフ
 post-info: true/false
 
 # サイドバーのディレクトリ
@@ -440,6 +469,45 @@ post-index: true/false
 # に報いる
 reward: true/false
 ```
+
+## 追加ラベル
+
+### admonition
+
+```text
+{% note/warning/success/failure/detail [title] [open/fold] [color] %}
+content
+{% end[note/warning/success/failure/detail] %}
+```
+
+ヒント、警告、エラーなどのブロックコンテンツを追加します。その中で、`note/warning/success/failure` はアイコンがあり、`detail` はアイコンがありません。
+
+### hide
+
+```
+{% hide content %}
+```
+
+コンテンツを非表示にし、content は markdown レンダリングをサポートし、引用符を使用する必要はありません。
+
+### link card/linkc
+
+```
+{% linkcard %}
+Title1:
+    avatar: https://someLink/someAvatar.png
+    src: https://someLink/
+    img: https://somelink/somePicture.png
+    descr: someDescr
+    style:
+    	color: someColor
+Title2:
+    avatar: https://someLink/someName.png
+    src: https://someLink/
+{% endlinkcard %}
+```
+
+友達チェーンのセットを生成できます。タイトル（title）、リンク（src）は必須です。スタイル（style）は CSS フォーマットに準拠しています。
 
 ## カスタム CSS/JS ファイルの導入
 
@@ -538,8 +606,11 @@ hexo serve --debug
 このテーマはお気に入れば：
 
 - star 頂戴いたします `(/▽＼)`  
-  > star 100 達成したら、新しいテーマの開発をスケジュールに入れます。  
+  > - star 100 達成したら、新しいテーマの開発をスケジュールに入れます。
+  > - 新しいテーマ開発中：
+  >   + [Yue-plus/astro-arknights](https://github.com/Yue-plus/astro-arknights)
+  >   + [Yue-plus/vuepress-theme-rhinelab](https://github.com/Yue-plus/vuepress-theme-rhinelab)
 - 開発者の arknight id：`24444750`（中国 Bilibili 鯖）  
-- Tencent QQ の交流グループ：618221514  
+- Tencent QQ の交流グループ：[618221514](https://qm.qq.com/q/QJ7NPWiWyK)
 - Reward：
   ![QRコード](./support.jpg)  

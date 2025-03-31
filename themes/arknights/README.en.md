@@ -7,22 +7,33 @@
 
 ## Preview
 
+Here are all the friendship links of this theme<!--Previously used-->:
+
 - ### **Dr.Yue_plus: <http://arknights.theme.hexo.yue.zone/>**
 - ### **Dr.ToUNVRSe <https://tounvrse.github.io/>**
 - **Dr.Ye: <https://laurenfrost.github.io/>**
-- **Dr.LingYun: <https://dr-lingyun.gitee.io/>**
-- **Dr.XIMU：<http://b.ligzs.cn/>**
 - **Dr.tyqtyq <https://tyq0712.github.io/>**
-- **Dr.TTsdzb <https://ark.ttsdzb.monster/>**
 - **Dr.Angine <https://angine.tech/>**
 - **Dr.sjfhsjfh <https://sjfh.top/>**
 - **Dr.Voilone <https://note.voiblog.top/>**
-- **Zhongye1 <https://zhongye1.github.io/>**
 - **Dr.yuanli-LFSW<https://blog.yuanli-lfsw.com/>**
-- **Dr.Rimrose: <https://blog.rimrose.site>**
 - **Dr.Laplacian: <https://rhinelab.kr>**
+- **Dr.Chen: <https://light-of-hers.github.io>**
+- **Dr.Linyee <https://linyee.world/>**
+- **Dr.Flacier <https://fldicoahkiin.github.io>**
+- **Dr.LZW <https://lzwnb.github.io/blog/>** 
+- **Dr.GrandpaFox <https://grandpafox.online/>** 
+- **Dr.未雨屏 <https://weiyuping.top/>**
+- **飞龙project <https://schale.top/>**
+- **tomorinao-www <https://ghpage.wwnao.xyz>**
 
-If you're using this theme, we will appreciate it if you could put your link here for a preview!  
+<!-- - **Dr.LingYun: <https://dr-lingyun.gitee.io/>** -->
+<!-- - **Dr.XIMU：<http://www.ligzs.com/>** -->
+<!-- - **Dr.TTsdzb <https://ark.ttsdzb.monster/>** -->
+<!-- - **Dr.Zhongye1 <https://zhongye1.github.io/>** -->
+<!-- - **Dr.Rimrose: <https://blog.rimrose.site>** -->
+
+If you're using this theme, we warmly welcome you to initiate [Pull Requests](https://github.com/Yue-plus/hexo-theme-arknights/compare) to post friends' links here.
 
 ![Preview image](./demo.jpg)
 
@@ -42,7 +53,7 @@ If you're using this theme, we will appreciate it if you could put your link her
 hexo init Hexo
 cd Hexo
 npm install
-git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights
+git clone https://github.com/Yue-plus/hexo-theme-arknights.git themes/arknights --depth=1
 ```
 
 ### Install dependencies
@@ -144,6 +155,8 @@ valine:
   app_id: # APP ID
   app_key: # APP KEY
   server_url: # APP DOMAIN (LeanCloud international version requires this)
+  avatar: 'retro' # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+  avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/' # Custom avatar cdn
 ```
 
 For notifications with email: [zhaojun1998 / Valine-Admin](https://github.com/zhaojun1998/Valine-Admin)
@@ -383,8 +396,15 @@ busuanzi:
 
 ## Document encryption
 
-The modified [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) plugin has been adapted and integrated into this theme (currently only the default and up themes are supported).
+The modified [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt) plugin has been adapted and integrated into this theme (currently only the `default` and `up` themes are supported).
 
+> If previously installed, please remove the `hexo-blog-encrypt` dependency in `package.json` under the hexo directory and execute the following command
+> 
+> ```shell
+> pnpm i
+> hexo clean
+> ```
+> 
 > For detailed configuration reference [hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt)
 
 Add the following to the `Hexo/_config.yml` file:
@@ -431,7 +451,16 @@ search:
 In addition to [Front-matter supported by Hexo](https://hexo.io/docs/front-matter), the theme also supports:  
 
 ```yaml
-# Published/updated date in the top right corner of the article page
+# Article Published/updated date
+post-time: true/false
+
+# Article reading time/word count statistics
+post-count: true/false
+
+# Article busuanzi counter
+busuanzi: true/false
+
+# Turn on/off all of the above
 post-info: true/false
 
 # Sidebar table of contents
@@ -440,6 +469,45 @@ post-index: true/false
 # Rewards
 reward: true/false
 ```
+
+## extra label
+
+### admonition
+
+```text
+{% note/warning/success/failure/detail [title] [open/fold] [color] %}
+content
+{% end[note/warning/success/failure/detail] %}
+```
+
+Add block based content such as note, warning, error, etc. with icons for `note/warning/success/failure` and no icons for `detail`.
+
+### hide
+
+```
+{% hide content %}
+```
+
+Hidden content, supports markdown rendering, can have spaces, and does not require quotation marks.
+
+### link card/linkc
+
+```
+{% linkcard %}
+Title1:
+    avatar: https://someLink/someAvatar.png
+    src: https://someLink/
+    img: https://somelink/somePicture.png
+    descr: someDescr
+    style:
+    	color: someColor
+Title2:
+    avatar: https://someLink/someName.png
+    src: https://someLink/
+{% endlinkcard %}
+```
+
+A set of friendly links can be generated, with the title and link (src) as mandatory options. Style follows CSS format.
 
 ## Import custom CSS/JS files
 
@@ -530,8 +598,10 @@ If you enjoy this theme:
 
 - give me a star `(/▽＼)`
   > - √ `ヾ(✿ﾟ▽ﾟ)ノ` 100star for a new theme~
-  > - new theme developing: [Yue-plus/vuepress-theme-rhinelab](https://github.com/Yue-plus/vuepress-theme-rhinelab)
+  > - New theme developing:
+  >   + [Yue-plus/astro-arknights](https://github.com/Yue-plus/astro-arknights)
+  >   + [Yue-plus/vuepress-theme-rhinelab](https://github.com/Yue-plus/vuepress-theme-rhinelab)
 - Arknights ID of the developer: `24444750` (Chinese Bilibili server)
-- join Tencent QQ discussion group:618221514
+- Join Tencent QQ discussion group: [618221514](https://qm.qq.com/q/QJ7NPWiWyK)
 - reward/sponsor:
   ![Reward QR code](./support.jpg)
